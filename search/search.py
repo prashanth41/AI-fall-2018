@@ -87,15 +87,16 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
-    closed = set()
+    visited = set()
     fringe = util.Stack()
     fringe.push(((problem.getStartState(), "holder", 1), []))
     while not fringe.isEmpty():
         item = fringe.pop()
         if problem.isGoalState(item[0][0]):
             return item[1]
-        if item[0][0] not in closed:
-            closed.add(item[0][0])
+        if item[0][0] not in visited:
+            visited.add(item[0][0])
+            
             for i in problem.getSuccessors(item[0][0]):
                 fringe.push((i, item[1] + [i[1]]))
 
