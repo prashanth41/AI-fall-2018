@@ -80,7 +80,7 @@ def depthFirstSearch(problem):
     goal. Make sure to implement a graph search algorithm.
 
     To get started, you might want to try some of these simple commands to
-    understand the search problem that is being passed in:
+    understand the search problem that is being passed in: 
 
     print "Start:", problem.getStartState()
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
@@ -89,16 +89,20 @@ def depthFirstSearch(problem):
     "*** YOUR CODE HERE ***"
     visited = set()
     fringe = util.Stack()
-    fringe.push(((problem.getStartState(), "holder", 1), []))
-    while not fringe.isEmpty():
-        item = fringe.pop()
-        if problem.isGoalState(item[0][0]):
-            return item[1]
-        if item[0][0] not in visited:
-            visited.add(item[0][0])
-            
-            for i in problem.getSuccessors(item[0][0]):
-                fringe.push((i, item[1] + [i[1]]))
+    start_node=problem.getStartState()
+    fringe.push((start_node, []))
+
+    while fringe.isEmpty() is False:
+
+        current_node = fringe.pop()
+        #print current_node
+        if problem.isGoalState(current_node[0]):
+            return current_node[1]
+        
+        if current_node[0] not in visited:
+            visited.add(current_node[0])
+            for i in problem.getSuccessors(current_node[0]):
+                fringe.push((i[0], current_node[1] + [i[1]]))
 
 
     util.raiseNotDefined()
@@ -108,15 +112,20 @@ def breadthFirstSearch(problem):
     "*** YOUR CODE HERE ***"
     visited = set()
     fringe = util.Queue()
-    fringe.push(((problem.getStartState(), "holder", 1), []))
-    while not fringe.isEmpty():
-        item = fringe.pop()
-        if problem.isGoalState(item[0][0]):
-            return item[1]
-        if item[0][0] not in visited:
-            visited.add(item[0][0])
-            for i in problem.getSuccessors(item[0][0]):
-                fringe.push((i, item[1] + [i[1]]))
+    start_node=problem.getStartState()
+    fringe.push((start_node, []))
+
+    while fringe.isEmpty() is False:
+
+        current_node = fringe.pop()
+        #print current_node
+        if problem.isGoalState(current_node[0]):
+            return current_node[1]
+
+        if current_node[0] not in visited:
+            visited.add(current_node[0])
+            for i in problem.getSuccessors(current_node[0]):
+                fringe.push((i[0], current_node[1] + [i[1]]))
 
 
     util.raiseNotDefined()
@@ -126,17 +135,24 @@ def uniformCostSearch(problem):
     "*** YOUR CODE HERE ***"
     visited = set()
     fringe = util.PriorityQueue()
-    fringe.push(((problem.getStartState(), "holder", 1), [], 0), 0)
-    while not fringe.isEmpty():
-        item = fringe.pop()
-        if problem.isGoalState(item[0][0]):
-            return item[1]
-        if item[0][0] not in visited:
-            visited.add(item[0][0])
-            for i in problem.getSuccessors(item[0][0]):
-                fringe.push((i, item[1] + [i[1]], item[2] + i[2]), item[2] + i[2])
-    
+    start_node=problem.getStartState()
+    fringe.push(((start_node, None, 0), [], 0), 0)
+
+    while fringe.isEmpty() is False:
+
+        current_node = fringe.pop()
+        
+        if problem.isGoalState(current_node[0][0]):
+             return current_node[1]
+
+        if current_node[0][0] not in visited:
+            visited.add(current_node[0][0])
+            for i in problem.getSuccessors(current_node[0][0]):
+                fringe.push((i, current_node[1] + [i[1]], current_node[2] + i[2]), current_node[2] + i[2])
+
+   
     util.raiseNotDefined()
+
 def nullHeuristic(state, problem=None):
     """
     A heuristic function estimates the cost from the current state to the nearest
@@ -149,15 +165,20 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     "*** YOUR CODE HERE ***"
     visited = set()
     fringe = util.PriorityQueue()
-    fringe.push(((problem.getStartState(), "holder", 1), [], 0), 0)
-    while not fringe.isEmpty():
-        item = fringe.pop()
-        if problem.isGoalState(item[0][0]):
-            return item[1]
-        if item[0][0] not in visited:
-            visited.add(item[0][0])
-            for i in problem.getSuccessors(item[0][0]):
-                fringe.push((i, item[1] + [i[1]], item[2] + i[2]), item[2] + i[2] + heuristic(i[0], problem))
+    start_node=problem.getStartState()
+    fringe.push(((start_node, None, 0), [], 0), 0)
+
+    while fringe.isEmpty() is False:
+
+        current_node = fringe.pop()
+
+        if problem.isGoalState(current_node[0][0]):
+            return current_node[1]
+            
+        if current_node[0][0] not in visited:
+            visited.add(current_node[0][0])
+            for i in problem.getSuccessors(current_node[0][0]):
+                fringe.push((i, current_node[1] + [i[1]], current_node[2] + i[2]), current_node[2] + i[2] + heuristic(i[0], problem))
 
 
 
@@ -169,3 +190,5 @@ bfs = breadthFirstSearch
 dfs = depthFirstSearch
 astar = aStarSearch
 ucs = uniformCostSearch
+
+
