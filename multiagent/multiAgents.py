@@ -254,12 +254,48 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
     def getAction(self, gameState):
         """
           Returns the expectimax action using self.depth and self.evaluationFunction
-
           All ghosts should be modeled as choosing uniformly at random from their
           legal moves.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        actions = gameState.getLegalActions(self.index)
+        highest = float("-inf")
+        best_action = None
+        max_depth = self.depth * gameState.getNumAgents()
+        for action in actions:
+          state = gameState.generateSuccessor(self.index,action)
+          score = value_ex(state,1,max_depth,self.evaluationFunction,self.index)
+          if score >= highest: 
+            highest = score
+            best_action = action
+        return best_action
+
+def value_ex(gameState,depth,max_depth,evaluationFunction,agentIndex):
+  if depth == max_depth or gameState.isWin() or gameState.isLose():
+    return evaluationFunction(gameState)
+  nextAgentIndex = (agentIndex + 1) % gameState.getNumAgents()
+  if nextAgentIndex == 0:
+    return maxValue_ex(gameState,depth+1,max_depth,evaluationFunction,nextAgentIndex)
+  else: 
+    return minValue_ex(gameState,depth+1,max_depth,evaluationFunction,nextAgentIndex)
+
+
+def maxValue_ex(gameState,depth,max_depth,evaluationFunction,agentIndex):
+  v = float("-inf")
+  actions = gameState.getLegalActions(agentIndex)
+  for action in actions:
+    state = gameState.generateSuccessor(agentIndex,action)
+    v = max(v,value_ex(state,depth,max_depth,evaluationFunction,agentIndex))
+  return v
+
+def minValue_ex(gameState,depth,max_depth,evaluationFunction,agentIndex):
+  v = []
+  actions = gameState.getLegalActions(agentIndex)
+  for action in actions:
+    state = gameState.generateSuccessor(agentIndex,action)
+    v.append(float(value_ex(state,depth,max_depth,evaluationFunction,agentIndex)))
+
+  return sum(v)/float(len(v))
 
 def betterEvaluationFunction(currentGameState):
     """
