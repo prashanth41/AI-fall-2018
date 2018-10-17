@@ -196,21 +196,21 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
           Returns the minimax action using self.depth and self.evaluationFunction
         """
         "*** YOUR CODE HERE ***"
-        # actions = gameState.getLegalActions(self.index)
-        # highest = float("-inf")
-        # best_action = None
-        # max_depth = self.depth * gameState.getNumAgents()
-        # alpha = float("-inf")
-        # beta = float("inf")
-        # for action in actions:          
-        #   state = gameState.generateSuccessor(self.index,action)
-        #   # ALPHA GETS UPDATED BASED ON BEST SCORE FROM PREVIOUS SUCCESSOR. 
-        #   # In this case, it is the 'highest' variable.
-        #   score = value_alphabeta(state,1,max_depth,self.evaluationFunction,self.index,highest,beta)
-        #   if score > highest: 
-        #     highest = score
-        #     best_action = action
-        # return best_action
+        actions = gameState.getLegalActions(self.index)
+        highest = float("-inf")
+        best_action = None
+        max_depth = self.depth * gameState.getNumAgents()
+        alpha = float("-inf")
+        beta = float("inf")
+        for action in actions:          
+          state = gameState.generateSuccessor(self.index,action)
+          # ALPHA GETS UPDATED BASED ON BEST SCORE FROM PREVIOUS SUCCESSOR. 
+          # In this case, it is the 'highest' variable.
+          score = value_alphabeta(state,1,max_depth,self.evaluationFunction,self.index,highest,beta)
+          if score > highest: 
+            highest = score
+            best_action = action
+        return best_action
 
 
 def value_alphabeta(gameState,depth,max_depth,evaluationFunction,agentIndex,alpha,beta):
