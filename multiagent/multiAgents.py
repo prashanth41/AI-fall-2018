@@ -301,11 +301,36 @@ def betterEvaluationFunction(currentGameState):
     """
       Your extreme ghost-hunting, pellet-nabbing, food-gobbling, unstoppable
       evaluation function (question 5).
-
       DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    prevFood = currentGameState.getFood()
+    currScore = currentGameState.getScore
+    actions = currentGameState.getLegalActions()
+
+    pos = currentGameState.getPacmanPosition()
+    ghostStates = currentGameState.getGhostStates()
+    numFood = currentGameState.getNumFood()
+    scaredTimes = [ghostState.scaredTimer for ghostState in ghostStates]
+
+    closestGhost = 1000
+    for state in ghostStates:
+      dist = manhattanDistance(state.getPosition(),pos)
+      if dist < closestGhost: closestGhost = dist
+
+    if closestGhost <= 1 and scaredTimes == 0:
+      return -10000
+
+    minimumDistanceFood = 0
+    distancesFoods = []
+    for food in prevFood.asList() :
+        distancesFoods.append(manhattanDistance(pos,food))
+    if len(distancesFoods) > 0 :
+        minimumDistanceFood = min(distancesFoods)
+
+    return -minimumDistanceFood + currentGameState.getScore() + 100*(closestGhost <= 1 and scaredTimes > 0)
+
 
 # Abbreviation
 better = betterEvaluationFunction
