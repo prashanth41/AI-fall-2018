@@ -1,14 +1,15 @@
 # analysis.py
 # -----------
-# Licensing Information:  You are free to use or extend these projects for
-# educational purposes provided that (1) you do not distribute or publish
-# solutions, (2) you retain this notice, and (3) you provide clear
-# attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
+# Licensing Information:  You are free to use or extend these projects for 
+# educational purposes provided that (1) you do not distribute or publish 
+# solutions, (2) you retain this notice, and (3) you provide clear 
+# attribution to UC Berkeley, including a link to 
+# http://inst.eecs.berkeley.edu/~cs188/pacman/pacman.html
 # 
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
-# The core projects and autograders were primarily created by John DeNero
+# The core projects and autograders were primarily created by John DeNero 
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
-# Student side autograding was added by Brad Miller, Nick Hay, and
+# Student side autograding was added by Brad Miller, Nick Hay, and 
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
@@ -21,49 +22,49 @@
 
 def question2():
     answerDiscount = 0.9
-    answerNoise = 0.2
+    answerNoise = 0.01
     return answerDiscount, answerNoise
 
 def question3a():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.5
+    answerNoise = 0
+    answerLivingReward = -1
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3b():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.8
+    answerNoise = 0.5
+    answerLivingReward = -1.8
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3c():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.2
+    answerNoise = -0.5
+    answerLivingReward = 0.5
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3d():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.8
+    answerNoise = 0.5
+    answerLivingReward = -1.5
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3e():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0
+    answerNoise = 0
+    answerLivingReward = 100000
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question6():
     answerEpsilon = None
     answerLearningRate = None
-    return answerEpsilon, answerLearningRate
-    # If not possible, return 'NOT POSSIBLE'
+    #return answerEpsilon, answerLearningRate
+    return 'NOT POSSIBLE'
 
 if __name__ == '__main__':
     print 'Answers to analysis questions:'
